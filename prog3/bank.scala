@@ -77,7 +77,7 @@ object bank{
   }
 
 
-  // Credit concrecrete class representing credit card derived from Account abstract class and implements accountDetails trait
+  // Credit concrecrete class representing credit card derived from Account abstract class and implements accountDetails & creditScore traits (multiple inheritence)
   class Credit(accName:String) extends Account with accountDetails with creditScore{
     // My own custom defined exception illustating Scala exception handeling
     import withdrawExecptions._

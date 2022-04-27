@@ -265,7 +265,7 @@ def main(args: Array[String]): Unit ={
     // Use scala util random library to generate random numbers
     val r = scala.util.Random
     // Scala for loop example
-    for( _ <- 0 to 10){
+    for( _ <- 0 to 9){
         myList.push(r.nextInt(100))
     }
     println("Unsorted list")
@@ -275,7 +275,7 @@ def main(args: Array[String]): Unit ={
     println("Sorted list")
     myList.printList()
     println("Modify sort function to make decending")
-    // Redfine sort method
+    // Redefine sort method
     sortFunction = (a:Int, b:Int) => a < b
     myList.sort(sortFunction)
     myList.printList()
