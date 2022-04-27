@@ -6,9 +6,13 @@
 
 // Like Java, everything is a class/object - however Scala allows us to define singleton objects from the get-go. In this simulation since there is only 1 bank it is a singleton object
 // This also demonstrates Scala's ability for prototype & delagation alongside the ability to OOP
+
+// import scala.concurrent.Future
+
 object bank{
 
   // A trait is identical to a interface in Java - it supports Scala's ability to do multiple inheritence as unlike interfaces, traits can have implementation.
+  // traits - can inherit multiple 
   trait accountDetails {
 
       // Account detail instance variables
@@ -36,6 +40,21 @@ object bank{
 
   }
 
+  trait creditScore {
+      var score: Int = 0
+      def addCreditScore(value:Int): Unit ={
+        this.score += value
+      }
+
+      def getCreditScore(): Int ={
+        return this.score
+      }
+      // def genScore(): Unit ={
+      //   Future { this.score + 50 }
+      // }
+
+  } 
+
   // Abstract Class Account defines basic functions - Unit in scala is identical to void in Java/C/C++ 
   abstract class Account(){
 
@@ -59,7 +78,7 @@ object bank{
 
 
   // Credit concrecrete class representing credit card derived from Account abstract class and implements accountDetails trait
-  class Credit(accName:String) extends Account with accountDetails{
+  class Credit(accName:String) extends Account with accountDetails with creditScore{
     // My own custom defined exception illustating Scala exception handeling
     import withdrawExecptions._
 
@@ -100,13 +119,14 @@ object bank{
     }
 
 
-    def getBalance():Double ={
+    override def getBalance():Double ={
       return this.balance
     }
 
     // applies intrest driver (compounded anually - I know irl we use PeRT but I wanted to illustate Scala's ability for recursion)
     def applyInterest(years:Int): Unit ={
         this.balance += computeInterest(years)
+        this.addCreditScore(years * 100)
     }
 
     // Recursive method that computes interest on current balance of credit card
@@ -146,7 +166,7 @@ object bank{
     }
 
 
-    def getBalance():Double ={
+    override def getBalance():Double ={
       return this.balance
     }
 
@@ -213,6 +233,7 @@ object bank{
   println("Don't pay for 5 years: )")
   creditCard.applyInterest(5)
   println("Balance due after 5 years: " + creditCard.getBalance())
+  println("Credit score after 5 years: " + creditCard.getCreditScore())
   println("Pay $500")
   creditCard.deposite(500.0)
   println("Remaining balance: " + creditCard.getBalance())
@@ -266,7 +287,6 @@ object bank{
   println("Do transactions with debit card")
   user.doTransactions(user.debitAccount)
   println("\n\nEnd of User Demo\n\n")
-
 
   }
 }

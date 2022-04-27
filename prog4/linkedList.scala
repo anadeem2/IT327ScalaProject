@@ -6,6 +6,8 @@
 
 // Imports in scala
 // import scala.collection.mutable.LinkedList
+// import scala.concurrent.Future
+
 
 
 // Custom created execeptions
@@ -26,7 +28,7 @@ case class MyLinkedList[T]() {
 
     // Add element to end of list
     def append(data:T): Unit = {
-        // switch statement
+        // pattern matching
         head match {
             case null => {
                 head = new Node(data, head)
@@ -160,12 +162,13 @@ case class MyLinkedList[T]() {
     def elementAtIndex(index: Int): T = {
 
         var temp: Node[T] = head
-        // Scala does not let you modify non var values as parameters
+        // Scala supports implicit styping but like ML is strongly typed
+        // Need current index b/c scala does not allow modifying parameter index
         var currentIndex = 0
 
         // check if index is in range
         if (index > size){
-            // optional semicolons
+            // optional semicolons - Can embed java code seemlessly inside scala
             throw new IndexOutOfBoundsException("No element at specified index (out of bounds)");
         }
 
@@ -189,7 +192,7 @@ case class MyLinkedList[T]() {
             return temp
         }
 
-    // Sort method that sorts the list given a function literal
+    // Sort method that sorts the list given a function literal - Higher order function
     def sort(compare: (value1:T, value2:T) => Boolean): Unit =
     {
         var currentNode: Node[T] = head
@@ -228,7 +231,7 @@ case class MyLinkedList[T]() {
 def main(args: Array[String]): Unit ={
     import emptyExeception._
 
-    // Create list
+    // Create list - Implicit typing
     val myList = MyLinkedList[Int]()
     myList.append(4)
     println("Created list and added 4")
@@ -254,7 +257,7 @@ def main(args: Array[String]): Unit ={
     println("Size of list: " + myList.length())
     println("Sort list using < operator function")
 
-    // Define sort function and pass to linked list sort method
+    // Define sort function and pass to higher order linked list sort method
     var sortFunction = (a:Int, b:Int) => a > b
     myList.sort(sortFunction)
     myList.printList()
