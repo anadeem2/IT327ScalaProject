@@ -191,7 +191,7 @@ case class MyLinkedList[T]() {
             }
             return temp
         }
-
+ 
     // Sort method that sorts the list given a function literal - Higher order function
     def sort(compare: (value1:T, value2:T) => Boolean): Unit =
     {
