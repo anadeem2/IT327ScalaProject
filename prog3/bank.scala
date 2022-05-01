@@ -2,7 +2,7 @@
 // Author: Awais Nadeem
 // IT327 Scala showcase Program3 - Intermediate
 // Bank modeling simulation demonstrating OOP in Scala including Inheritence (Abstract Classes + Interfaces/Traits), Instances (variables + objects)
-// Method and function calls, Singleton objects, message interactions, return types, CLI
+// Method and function calls, Singleton objects, message interactions, return types, CLA
 
 // Like Java, everything is a class/object - however Scala allows us to define singleton objects from the get-go. In this simulation since there is only 1 bank it is a singleton object
 // This also demonstrates Scala's ability for prototype & delagation alongside the ability to OOP
@@ -58,7 +58,7 @@ object bank{
   // Abstract Class Account defines basic functions - Unit in scala is identical to void in Java/C/C++ 
   abstract class Account(){
 
-    def deposite(amount:Double) : Unit
+    def deposit(amount:Double) : Unit
     def withdraw(amount:Double) : Boolean
     def getBalance():Double
 
@@ -114,7 +114,7 @@ object bank{
     }
 
     // Pay off balance
-    override def deposite(amount:Double): Unit = {
+    override def deposit(amount:Double): Unit = {
       this.balance -= amount
     }
 
@@ -126,6 +126,7 @@ object bank{
     // applies intrest driver (compounded anually - I know irl we use PeRT but I wanted to illustate Scala's ability for recursion)
     def applyInterest(years:Int): Unit ={
         this.balance += computeInterest(years)
+        // add creditScore - show traits interaction
         this.addCreditScore(years * 100)
     }
 
@@ -161,7 +162,7 @@ object bank{
     }
 
     // not paying off balance, but adding money to account
-    override def deposite(amount:Double): Unit = {
+    override def deposit(amount:Double): Unit = {
       this.balance += amount
     }
 
@@ -189,13 +190,13 @@ object bank{
     }
 
     def doTransactions(account:Account):Unit ={
-        account.deposite(1000.0)
+        account.deposit(1000.0)
         println("Current balance: " + account.getBalance())
         println("Buy ps5 for $883.60")
         account.withdraw(883.60)
         println("Balance due:" + account.getBalance())
         println("Pay $500")
-        account.deposite(500.0)
+        account.deposit(500.0)
         println("Remaining balance: " + account.getBalance())
     }
 
@@ -235,7 +236,7 @@ object bank{
   println("Balance due after 5 years: " + creditCard.getBalance())
   println("Credit score after 5 years: " + creditCard.getCreditScore())
   println("Pay $500")
-  creditCard.deposite(500.0)
+  creditCard.deposit(500.0)
   println("Remaining balance: " + creditCard.getBalance())
 
   // Try catch finally - Scala's exception handling illustration
@@ -256,12 +257,12 @@ object bank{
   println("\n\nDebit Card Demo\n\n")
 
   val debitCard = new Debit(name + " Debit")
-  creditCard.deposite(1000.0)
+  creditCard.deposit(1000.0)
 
   println("Opened debit card:\n" + debitCard.accountDetails())
   println("Current balance: " + debitCard.getBalance())
   println("Deposit $1000 ")
-  debitCard.deposite(1000.0)
+  debitCard.deposit(1000.0)
   println("Current balance: " + debitCard.getBalance())
   println("Buy ps5 for $883.60")
   debitCard.withdraw(883.60)
